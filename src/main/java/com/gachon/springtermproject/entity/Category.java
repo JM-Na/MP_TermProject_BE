@@ -6,23 +6,25 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
+import java.util.Optional;
+
 @Entity
 @Setter
 @Getter
 @Builder
 @NoArgsConstructor
-public class Section {
+public class Category {
     @Id
-    @Column(name="section_id")
-    private int id;
+    @Column
+    private Long id;
     @Column
     private String name;
     @ManyToOne
-    @JoinColumn(name="sports_id")
+    @JoinColumn
     private Sports sports;
 
     @Builder
-    public Section(int id, String name, Sports sports){
+    public Category(Long id, String name, Sports sports){
         this.id = id;
         this.name = name;
         this.sports = sports;

@@ -6,25 +6,30 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
+import java.util.ArrayList;
+import java.util.List;
+
 @Entity
 @Setter
 @Getter
-@Builder
 @NoArgsConstructor
-public class League {
+public class Tournament {
     @Id
-    @Column(name="league_id")
-    private int id;
+    @Column
+    private Long id;
+    @Column
+    private Long unique_id;
     @Column
     private String name;
     @ManyToOne
-    @JoinColumn(name="section_id")
-    private Section section;
-
+    @JoinColumn
+    private Category category;
     @Builder
-    public League(int id, String name, Section section){
+    public Tournament(Long id, Long unique_id, String name, Category category){
         this.id = id;
+        this.unique_id = unique_id;
         this.name = name;
-        this.section = section;
+        this.category = category;
     }
+
 }

@@ -7,6 +7,8 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import java.time.LocalDateTime;
+import java.util.ArrayList;
+import java.util.List;
 
 @Entity
 @Setter
@@ -18,29 +20,24 @@ public class Event {
     private int id;
     @Column
     private String name;
-    @OneToOne
-    @JoinColumn(name="home_teamId", referencedColumnName = "team_id")
-    private Team home_team;
-    @OneToOne
-    @JoinColumn(name="away_teamId", referencedColumnName = "team_id")
-    private Team away_team;
     @ManyToOne
-    @JoinColumn(name="league_id")
-    private League league;
+    @JoinColumn
+    private Tournament tournament;
     @Column
     private String status;
     @Column
     private LocalDateTime date_time;
 
+    @OneToOne(mappedBy = "event")
+    private EventTeam eventTeam;
     @Builder
-    public Event(int id, String name, Team home_team, Team away_team,
-                 League league, String status, LocalDateTime date_time){
+    public Event(int id, String name, Tournament tournament, String status,
+                 LocalDateTime date_time, EventTeam eventTeam){
         this.id = id;
         this.name = name;
-        this.home_team = home_team;
-        this.away_team = away_team;
-        this.league = league;
+        this.tournament = tournament;
         this.status = status;
         this.date_time = date_time;
+        this.eventTeam = eventTeam;
     }
 }

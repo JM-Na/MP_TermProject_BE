@@ -11,12 +11,15 @@ import java.util.Date;
 @Entity
 @Setter
 @Getter
-@Builder
 @NoArgsConstructor
-public class Manager {
+public class User {
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
+    @Column (unique = true)
+    private String email;
     @Column
-    private int id;
+    private String pwd;
     @Column
     private String name;
     @Column
@@ -25,17 +28,18 @@ public class Manager {
     private Date date_of_birth;
     @Column
     private String nation;
-    @OneToOne
+    @ManyToOne
     @JoinColumn
-    private Team team;
+    private Team favorite_team;
 
     @Builder
-    public Manager(int id, String name, int age, Date date_of_birth,String nation, Team team){
-        this.id = id;
+    public User(String email, String pwd, String name, int age, Date date_of_birth, String nation, Team team){
+        this.email = email;
+        this.pwd = pwd;
         this.name = name;
         this.age = age;
         this.date_of_birth = date_of_birth;
         this.nation = nation;
-        this.team = team;
+        this.favorite_team = team;
     }
 }

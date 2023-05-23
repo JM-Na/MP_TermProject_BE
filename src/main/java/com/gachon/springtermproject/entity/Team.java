@@ -6,6 +6,9 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
+import java.util.ArrayList;
+import java.util.List;
+
 @Entity
 @Setter
 @Getter
@@ -17,14 +20,20 @@ public class Team {
     private int id;
     @Column
     private String name;
-    @ManyToOne
-    @JoinColumn(name="league_id")
-    private League league;
+    @OneToMany(mappedBy = "team")
+    private List<SeasonTeam> seasonTeams = new ArrayList<>();
+
+    @OneToMany(mappedBy = "team_home")
+    private List<EventTeam> eventTeams_home = new ArrayList<>();
+    @OneToMany(mappedBy = "team_away")
+    private List<EventTeam> eventTeams_away = new ArrayList<>();
 
     @Builder
-    public Team(int id, String name, League league){
+    public Team(int id, String name, List<SeasonTeam> seasonTeams, List<EventTeam> eventTeams_home, List<EventTeam> eventTeams_away){
         this.id = id;
         this.name = name;
-        this.league = league;
+        this.seasonTeams = seasonTeams;
+        this.eventTeams_home = eventTeams_home;
+        this.eventTeams_away = eventTeams_away;
     }
 }

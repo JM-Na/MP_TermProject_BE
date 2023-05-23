@@ -1,10 +1,10 @@
 package com.gachon.springtermproject.repository;
 
-import com.gachon.springtermproject.entity.League;
+import com.gachon.springtermproject.entity.Season;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
 @Repository
-public interface LeagueRepository extends JpaRepository<League, Long>{
+public interface SeasonRepository extends JpaRepository<Season, Long>{
 
 }
