@@ -12,12 +12,11 @@ import java.util.List;
 @Entity
 @Setter
 @Getter
-@Builder
 @NoArgsConstructor
 public class Team {
     @Id
     @Column(name="team_id")
-    private int id;
+    private Long id;
     @Column
     private String name;
     @OneToMany(mappedBy = "team")
@@ -29,11 +28,8 @@ public class Team {
     private List<EventTeam> eventTeams_away = new ArrayList<>();
 
     @Builder
-    public Team(int id, String name, List<SeasonTeam> seasonTeams, List<EventTeam> eventTeams_home, List<EventTeam> eventTeams_away){
+    public Team(Long id, String name){
         this.id = id;
         this.name = name;
-        this.seasonTeams = seasonTeams;
-        this.eventTeams_home = eventTeams_home;
-        this.eventTeams_away = eventTeams_away;
     }
 }
