@@ -15,7 +15,7 @@ import java.util.List;
 @NoArgsConstructor
 public class Team {
     @Id
-    @Column(name="team_id")
+    @Column
     private Long id;
     @Column
     private String name;

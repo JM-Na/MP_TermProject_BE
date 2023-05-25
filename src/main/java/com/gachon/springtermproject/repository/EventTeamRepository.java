@@ -6,5 +6,5 @@ import org.springframework.stereotype.Repository;
 
 @Repository
 public interface EventTeamRepository extends JpaRepository<EventTeam, Long>{
-
+    boolean existsByEvent(EventTeam eventTeam);
 }

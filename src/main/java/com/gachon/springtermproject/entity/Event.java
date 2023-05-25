@@ -6,6 +6,7 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
+import java.sql.Timestamp;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
@@ -13,31 +14,29 @@ import java.util.List;
 @Entity
 @Setter
 @Getter
-@Builder
 @NoArgsConstructor
 public class Event {
     @Id
-    private int id;
-    @Column
-    private String name;
+    private Long id;
     @ManyToOne
     @JoinColumn
     private Tournament tournament;
     @Column
     private String status;
     @Column
-    private LocalDateTime date_time;
+    private String round_info;
+    @Column
+    private Timestamp date_time;
 
     @OneToOne(mappedBy = "event")
     private EventTeam eventTeam;
     @Builder
-    public Event(int id, String name, Tournament tournament, String status,
-                 LocalDateTime date_time, EventTeam eventTeam){
+    public Event(Long id, Tournament tournament, String status, String round_info,
+                 Timestamp date_time){
         this.id = id;
-        this.name = name;
         this.tournament = tournament;
         this.status = status;
+        this.round_info = round_info;
         this.date_time = date_time;
-        this.eventTeam = eventTeam;
     }
 }
