@@ -13,14 +13,15 @@ import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpMethod;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.client.HttpClientErrorException;
 import org.springframework.web.client.RestTemplate;
 
 import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.Date;
 import java.util.List;
 
 @Controller
@@ -98,7 +99,7 @@ public class SportsController {
         for(Long sportsId : sportsIds){
             String categoryUrl = "https://sofasport.p.rapidapi.com/v1/categories?sport_id=";
             JSONArray resultArray1 = getResponse(categoryUrl + sportsId);
-            if(resultArray1==null){
+            if(resultArray1!=null){
                 int j = 0;
                 while(resultArray1.size()>j){
                     JSONObject temp = (JSONObject) resultArray1.get(j);
@@ -123,16 +124,17 @@ public class SportsController {
             return "Update failed";
         String[] names = new String[]{"Premier League", "League One", "Ligue 1", "Serie A", "LaLiga", "Bundesliga",
                 "NBA", "K League 1", "KBL", "KBO", "MLB"};
+        List<String> name = new ArrayList<>(List.of(names));
         Long[] categories = new Long[]{1L, 7L, 30L, 31L, 32L, 291L, 15L, 375L, 1374L, 1385L};
 
         for (Long category : categories) {
             String sportUrl = "https://sofasport.p.rapidapi.com/v1/tournaments?category_id=";
             JSONArray resultArray = getResponse(sportUrl+category);
-            if(resultArray==null){
+            if(resultArray!=null){
                 int count = 0;
                 while (resultArray.size() > count) {
                     JSONObject temp = (JSONObject) resultArray.get(count);
-                    if(categoryRepository.findById(category).isPresent()&&Arrays.asList(names).contains(temp.get("name"))){
+                    if(categoryRepository.findById(category).isPresent()&&name.contains((String) temp.get("name"))){
                         Tournament tournament = new Tournament((Long) temp.get("id"),
                                 (Long) temp.get("uniqueId"), (String) temp.get("name"), categoryRepository.findById(category).get());
                         tournamentRepository.save(tournament);
@@ -154,7 +156,7 @@ public class SportsController {
         for (Tournament tournament : tournaments) {
             String sportUrl = "https://sofasport.p.rapidapi.com/v1/tournaments/seasons?tournament_id=";
             JSONArray resultArray = getResponse(sportUrl+tournament.getId());
-            if(resultArray==null){
+            if(resultArray!=null){
                 int count = 0;
                 while (resultArray.size() > count) {
                     JSONObject temp = (JSONObject) resultArray.get(count);
@@ -187,7 +189,7 @@ public class SportsController {
                     "unique_tournament_id=" + unique_id + "&seasons_id=" + seasons_id;
 
             JSONArray resultArray = getResponse(sportUrl);
-            if(resultArray==null){
+            if(resultArray!=null){
                 int count = 0;
                 while (resultArray.size() > count) {
                     JSONObject temp = (JSONObject) resultArray.get(count);
@@ -220,7 +222,7 @@ public class SportsController {
             String sportUrl = "https://sofasport.p.rapidapi.com/v1/teams/players?team_id=" + team_id;
 
             JSONArray resultArray = getResponse(sportUrl);
-            if(resultArray==null){
+            if(resultArray!=null){
                 int count = 0;
                 while (resultArray.size() > count) {
                     JSONObject temp = (JSONObject) resultArray.get(count);
@@ -243,24 +245,6 @@ public class SportsController {
     public String test(@RequestBody SetScheduleRequestDto dto) throws ParseException {
         if(!dto.isEnabled())
             return "Update failed";
-
-        List<Tournament> tournaments = tournamentRepository.findAll();
-        List<Season> seasons = seasonRepository.findAll();
-        Long[] categories = new Long[]{1L, 7L, 30L, 31L, 32L, 291L, 15L, 375L, 1374L, 1385L};
-
-        Tournament tournament = tournaments.get(1);
-        Season season = seasons.get(1);
-        Long category = categories[1];;
-
-        Long unique_id = season.getTournament().getUnique_id();
-        Long seasons_id = season.getId();
-        System.out.println(season);
-        System.out.println(unique_id);
-        System.out.println(seasons_id);
-        String sportUrl2 = "https://sofasport.p.rapidapi.com/v1/seasons/teams-statistics/result?seasons_statistics_type=overall&" +
-                "unique_tournament_id=" + unique_id + "&seasons_id=" + seasons_id;
-        JSONArray resultArray2 = getResponse(sportUrl2);
-
 
         return "Update Successful";
     }
