@@ -55,7 +55,7 @@ public class SportsController {
         String requestBody = "";
         HttpEntity<String> entity = new HttpEntity<>(requestBody, headers);
         RestTemplate restTemplate = new RestTemplate();
-        ResponseEntity<String> response = null;
+        ResponseEntity<String> response;
         try {
             response = restTemplate.exchange(url, HttpMethod.GET, entity, String.class);
         } catch (HttpClientErrorException.NotFound ex) {
@@ -242,7 +242,7 @@ public class SportsController {
 
     @PostMapping("/api/test")
     @ResponseBody
-    public String test(@RequestBody SetScheduleRequestDto dto) throws ParseException {
+    public String test(@RequestBody SetScheduleRequestDto dto){
         if(!dto.isEnabled())
             return "Update failed";
 
