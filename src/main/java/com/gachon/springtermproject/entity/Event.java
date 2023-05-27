@@ -21,14 +21,14 @@ public class Event {
     @Column
     private String status;
     @Column
-    private String round_info;
+    private Long round_info;
     @Column
     private Timestamp date_time;
 
     @OneToOne(mappedBy = "event")
     private EventTeam eventTeam;
     @Builder
-    public Event(Long id, Tournament tournament, String status, String round_info,
+    public Event(Long id, Tournament tournament, String status, Long round_info,
                  Timestamp date_time){
         this.id = id;
         this.tournament = tournament;
