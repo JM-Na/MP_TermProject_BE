@@ -6,11 +6,8 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
-import java.lang.reflect.Field;
 import java.sql.Timestamp;
-import java.util.ArrayList;
 import java.util.Date;
-import java.util.List;
 
 @Entity
 @Setter
@@ -72,9 +69,6 @@ public class Player {
         return age;
     }
     public boolean containsNull(){
-        if(id!=null&&name!=null&&date_of_birth!=null&&height!=null&&shirt_number!=null&&nation!=null&&position!=null)
-            return false;
-
-        return true;
+        return id == null || name == null || date_of_birth == null || height == null || shirt_number == null || nation == null || position == null;
     }
 }

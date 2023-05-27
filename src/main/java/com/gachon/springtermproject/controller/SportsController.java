@@ -39,7 +39,7 @@ public class SportsController {
     public SportsController(MessageSource messageSource, SportsRepository sportsRepository, CategoryRepository categoryRepository,
                             TournamentRepository tournamentRepository,SeasonRepository seasonRepository, TeamRepository teamRepository,
                             SeasonTeamRepository seasonTeamRepository, EventTeamRepository eventTeamRepository, PlayerRepository playerRepository,
-                            EventRepository eventRepository) throws ParseException {
+                            EventRepository eventRepository) {
         this.sportsRepository = sportsRepository;
         this.categoryRepository = categoryRepository;
         this.tournamentRepository = tournamentRepository;
@@ -437,8 +437,7 @@ public class SportsController {
     }
 
     public Timestamp toTimeStamp(long num){
-        Timestamp timestamp = new Timestamp(num * 1000);
-        return timestamp;
+        return new Timestamp(num * 1000);
     }
     public String nameTrimmer(String name){
         String result1 = name.trim().replaceAll("-", "");
