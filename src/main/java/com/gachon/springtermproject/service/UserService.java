@@ -17,7 +17,7 @@ public class UserService {
     UserRepository userRepository;
 
     public String signIn(UserSignInRequestDto dto){
-        if(dto.getPwd()== dto.getChkPwd()){
+        if(dto.getPwd().equals(dto.getChkPwd())){
             int age = calculateAge(dto.getDate_of_birth());
             User user = new User(dto.getEmail(), dto.getPwd(), dto.getName(), dto.getNickName(),
                     dto.getDate_of_birth(), age, dto.getNation());
@@ -27,11 +27,11 @@ public class UserService {
         return "Error:Unable to sign in";
     }
     public String logIn(UserLogInRequestDto dto){
-        if(userRepository.findByEmail(dto.getEmail())==null)
+        if(checkDuplicateEmail(dto.getEmail()))
             return "Log in failed:Email does not exist";
         else{
             User user = userRepository.findByEmail(dto.getEmail());
-            if(user.getPwd()!=dto.getPwd())
+            if(!user.getPwd().equals(dto.getPwd()))
                 return "Log in failed:Wrong password";
             //세션 또는 JWT 발급
             return "Log in successful!";

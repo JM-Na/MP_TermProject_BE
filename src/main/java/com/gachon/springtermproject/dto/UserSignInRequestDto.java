@@ -1,6 +1,5 @@
 package com.gachon.springtermproject.dto;
 
-import com.gachon.springtermproject.entity.Team;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
