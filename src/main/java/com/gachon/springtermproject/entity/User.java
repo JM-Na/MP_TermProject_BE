@@ -23,6 +23,8 @@ public class User {
     @Column
     private String name;
     @Column
+    private String nickname;
+    @Column
     private int age;
     @Column
     private Date date_of_birth;
@@ -33,13 +35,13 @@ public class User {
     private Team favorite_team;
 
     @Builder
-    public User(String email, String pwd, String name, int age, Date date_of_birth, String nation, Team team){
+    public User(String email, String pwd, String name, String nickname, Date date_of_birth, int age, String nation){
         this.email = email;
         this.pwd = pwd;
         this.name = name;
-        this.age = age;
+        this.nickname = nickname;
         this.date_of_birth = date_of_birth;
+        this.age = age;
         this.nation = nation;
-        this.favorite_team = team;
     }
 }
