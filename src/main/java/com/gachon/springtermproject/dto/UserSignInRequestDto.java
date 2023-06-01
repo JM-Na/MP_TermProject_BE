@@ -13,9 +13,9 @@ public class UserSignInRequestDto {
     private String email;
     private String pwd;
     private String chkPwd;
-    private String name;
+    //private String name;
     private String nickName;
-    private Date date_of_birth;
-    private String nation;
+   //private Date date_of_birth;
+   //private String nation;
 
 }

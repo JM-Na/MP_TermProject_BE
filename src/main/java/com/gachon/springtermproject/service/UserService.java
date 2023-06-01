@@ -1,8 +1,10 @@
 package com.gachon.springtermproject.service;
 
 import com.gachon.springtermproject.dto.UserLogInRequestDto;
+import com.gachon.springtermproject.dto.UserSelectTeamDto;
 import com.gachon.springtermproject.dto.UserSignInRequestDto;
 import com.gachon.springtermproject.entity.User;
+import com.gachon.springtermproject.repository.TeamRepository;
 import com.gachon.springtermproject.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -14,20 +16,24 @@ import java.time.Period;
 @Service
 @RequiredArgsConstructor
 public class UserService {
-    UserRepository userRepository;
+    private final UserRepository userRepository;
+    private final TeamRepository teamRepository;
 
     public String signIn(UserSignInRequestDto dto){
+        if(checkDuplicateEmail(dto.getEmail()))
+            return "Sign in failed:Duplicate email found";
         if(dto.getPwd().equals(dto.getChkPwd())){
-            int age = calculateAge(dto.getDate_of_birth());
+            /*int age = calculateAge(dto.getDate_of_birth());
             User user = new User(dto.getEmail(), dto.getPwd(), dto.getName(), dto.getNickName(),
-                    dto.getDate_of_birth(), age, dto.getNation());
+                    dto.getDate_of_birth(), age, dto.getNation());*/
+            User user = new User(dto.getEmail(), dto.getPwd(), dto.getNickName());
             userRepository.save(user);
             return "User Code:"+user.getId()+"-Successfully signed in";
         }
         return "Error:Unable to sign in";
     }
     public String logIn(UserLogInRequestDto dto){
-        if(checkDuplicateEmail(dto.getEmail()))
+        if(!checkDuplicateEmail(dto.getEmail()))
             return "Log in failed:Email does not exist";
         else{
             User user = userRepository.findByEmail(dto.getEmail());
@@ -36,6 +42,13 @@ public class UserService {
             //세션 또는 JWT 발급
             return "Log in successful!";
         }
+    }
+    public String selectTeam(UserSelectTeamDto dto){
+        String email = dto.getEmail();
+        User user = userRepository.findByEmail(email);
+        user.setFavorite_team(teamRepository.findByName(dto.getTeam()));
+
+        return "Successful";
     }
     public String logOut(){
         //세션 또는 JWT 검증

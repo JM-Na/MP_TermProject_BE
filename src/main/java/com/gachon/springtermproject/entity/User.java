@@ -44,4 +44,10 @@ public class User {
         this.age = age;
         this.nation = nation;
     }
+    @Builder
+    public User(String email, String pwd, String nickname){
+        this.email = email;
+        this.pwd = pwd;
+        this.nickname = nickname;
+    }
 }
