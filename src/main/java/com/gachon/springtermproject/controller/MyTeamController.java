@@ -2,7 +2,6 @@ package com.gachon.springtermproject.controller;
 
 import com.gachon.springtermproject.dto.EventByDateRequestDto;
 import com.gachon.springtermproject.dto.MyTeamRequestDto;
-import com.gachon.springtermproject.dto.UserSignInRequestDto;
 import com.gachon.springtermproject.service.MyTeamService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
