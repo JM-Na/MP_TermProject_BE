@@ -20,16 +20,16 @@ public class EventTeam {
 
     @ManyToOne
     @JoinColumn(name = "home_team_id")
-    private Team team_home;
+    private Team teamHome;
 
     @ManyToOne
     @JoinColumn(name = "team_away_id")
-    private Team team_away;
+    private Team teamAway;
 
     @Builder
-    public EventTeam(Event event, Team team_home, Team team_away ){
+    public EventTeam(Event event, Team teamHome, Team teamAway ){
         this.event = event;
-        this.team_home = team_home;
-        this.team_away = team_away;
+        this.teamHome = teamHome;
+        this.teamAway = teamAway;
     }
 }

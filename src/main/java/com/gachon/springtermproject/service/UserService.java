@@ -46,8 +46,8 @@ public class UserService {
     public String selectTeam(UserSelectTeamDto dto){
         String email = dto.getEmail();
         User user = userRepository.findByEmail(email);
-        user.setFavorite_team(teamRepository.findByName(dto.getTeam()));
-
+        user.setFavoriteTeam(teamRepository.findByName(dto.getTeam()));
+        userRepository.save(user);
         return "Successful";
     }
     public String logOut(){

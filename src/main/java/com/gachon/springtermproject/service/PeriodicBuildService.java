@@ -140,8 +140,8 @@ public class PeriodicBuildService {
                             eventRepository.save(event);
                         if (!eventTeamRepository.existsByEvent(event)) {
                             eventTeamRepository.save(eventTeam);
-                            teamHome.getEventTeams_home().add(eventTeam);
-                            teamAway.getEventTeams_away().add(eventTeam);
+                            teamHome.getEventTeamsHome().add(eventTeam);
+                            teamAway.getEventTeamsAway().add(eventTeam);
                         }
                     }
                     count++;

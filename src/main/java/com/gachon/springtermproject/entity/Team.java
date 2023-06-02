@@ -22,10 +22,10 @@ public class Team {
     @OneToMany(mappedBy = "team")
     private List<SeasonTeam> seasonTeams = new ArrayList<>();
 
-    @OneToMany(mappedBy = "team_home")
-    private List<EventTeam> eventTeams_home = new ArrayList<>();
-    @OneToMany(mappedBy = "team_away")
-    private List<EventTeam> eventTeams_away = new ArrayList<>();
+    @OneToMany(mappedBy = "teamHome")
+    private List<EventTeam> eventTeamsHome = new ArrayList<>();
+    @OneToMany(mappedBy = "teamAway")
+    private List<EventTeam> eventTeamsAway = new ArrayList<>();
 
     @Builder
     public Team(Long id, String name){

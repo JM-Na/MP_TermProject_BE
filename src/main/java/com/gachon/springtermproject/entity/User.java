@@ -31,8 +31,8 @@ public class User {
     @Column
     private String nation;
     @ManyToOne
-    @JoinColumn
-    private Team favorite_team;
+    @JoinColumn(name = "favorite_team")
+    private Team favoriteTeam;
 
     @Builder
     public User(String email, String pwd, String name, String nickname, Date date_of_birth, int age, String nation){

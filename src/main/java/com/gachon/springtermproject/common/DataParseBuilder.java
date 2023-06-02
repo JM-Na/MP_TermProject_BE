@@ -15,6 +15,8 @@ import org.springframework.web.client.HttpClientErrorException;
 import org.springframework.web.client.RestTemplate;
 
 import java.sql.Timestamp;
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
 
 @Component
 @RequiredArgsConstructor
@@ -66,5 +68,29 @@ public class DataParseBuilder {
             String[] parts = result1.split("\\s+");
             return parts[1] + " " +parts[0];
         }
+    }
+
+    public Timestamp stringToTimeStamp(String date){
+        SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss.SSS");
+        try {
+            java.util.Date parsedDate = dateFormat.parse(date); // 문자열을 Date로 파싱
+            Timestamp timestamp = new Timestamp(parsedDate.getTime()); // Date를 Timestamp로 변환
+            // Timestamp를 Calendar로 변환
+            Calendar calendar = Calendar.getInstance();
+            calendar.setTime(timestamp);
+
+            // 시간, 분, 초, 밀리초를 0으로 설정
+            calendar.set(Calendar.HOUR_OF_DAY, 0);
+            calendar.set(Calendar.MINUTE, 0);
+            calendar.set(Calendar.SECOND, 0);
+            calendar.set(Calendar.MILLISECOND, 0);
+
+            // Calendar를 Timestamp로 변환
+            timestamp = new Timestamp(calendar.getTimeInMillis());
+            return timestamp;
+        } catch (java.text.ParseException e) {
+            e.printStackTrace();
+        }
+        return null;
     }
 }

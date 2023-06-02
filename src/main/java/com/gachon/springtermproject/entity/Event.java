@@ -20,20 +20,20 @@ public class Event {
     private Tournament tournament;
     @Column
     private String status;
-    @Column
-    private Long round_info;
-    @Column
-    private Timestamp date_time;
+    @Column(name="round_info")
+    private Long roundInfo;
+    @Column(name = "date_time")
+    private Timestamp dateTime;
 
     @OneToOne(mappedBy = "event")
     private EventTeam eventTeam;
     @Builder
-    public Event(Long id, Tournament tournament, String status, Long round_info,
-                 Timestamp date_time){
+    public Event(Long id, Tournament tournament, String status, Long roundInfo,
+                 Timestamp dateTime){
         this.id = id;
         this.tournament = tournament;
         this.status = status;
-        this.round_info = round_info;
-        this.date_time = date_time;
+        this.roundInfo = roundInfo;
+        this.dateTime = dateTime;
     }
 }
