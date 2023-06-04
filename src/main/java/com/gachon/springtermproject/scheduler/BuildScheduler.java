@@ -16,6 +16,6 @@ public class BuildScheduler {
     // 매주 토요일 새벽 3시에 자동으로 시작하는 스케쥴러
     @Scheduled(cron = "0 0 3 * * 6")
     public void autoUpdate() throws Exception {
-        //periodicBuildService.setEventByDate();
+        periodicBuildService.setEventByDate();
     }
 }
